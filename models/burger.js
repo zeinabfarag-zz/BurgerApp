@@ -1,22 +1,25 @@
-//file will call on the predefined orm fns and use specific values
-//require in orm fns
-const orm = require('../config/orm.js');
-const burger = {
+// Import orm.js file
+
+var orm = require('../config/orm');
+// create code that will call the ORM functions using burger specific input for the ORM
+
+var burger = {
   selectAll: function(cb) {
-    orm.selectAll('burgers', function(result) {
-      cb(result);
+    orm.selectAll('burgers', function(res) {
+      cb(res);
     });
   },
-  insertOne(columns, values, cb) {
-    orm.insertOne('burgers', columns, values, function(result) {
-      cb(result);
+  insertOne: function(cols, vals, cb) {
+    orm.insertOne('burgers', cols, vals, function(res) {
+      cb(res);
     });
   },
-  updateOne(columnValue, idValue, cb) {
-    orm.updateOne('burgers', columnValue, idValue, function(result) {
-      cb(result);
+  updateOne: function(objColVals, condition, cb) {
+    orm.updateOne('burgers', objColVals, condition, function(res) {
+      cb(res);
     });
   }
 };
-//export the code for use in controller dir
+
+// Export code at the end to controller
 module.exports = burger;

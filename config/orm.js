@@ -1,6 +1,8 @@
-///making functions to be executed on server.js
-const connection = require('./connection.js');
+// Require in the connection to the database
+var connection = require('./connection');
+
 // Helper function for generating MySQL syntax
+
 function printQuestionMarks(num) {
   var arr = [];
 
@@ -11,64 +13,62 @@ function printQuestionMarks(num) {
   return arr.toString();
 }
 
-// Helper function for generating My SQL syntax
+// Helper function for generating MySQL syntax
 function objToSql(ob) {
   var arr = [];
-
   for (var key in ob) {
     arr.push(key + '=' + ob[key]);
   }
-
   return arr.toString();
 }
-const orm = {
-  //fn to get all entries
-  selectAll: function(tableName, cb) {
-    var queryString = 'SELECT * FROM ' + tableName + ';';
+
+// Create methods that will execute the necessary MYSQL commads in the controlers
+var orm = {
+  // methods are selectAll()
+  selectAll: function(tableInput, cb) {
+    var queryString = 'SELECT * FROM ' + tableInput + ';';
     connection.query(queryString, function(err, result) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       cb(result);
     });
   },
-  // Fn to insert a single table entry
-  insertOne: function(tableName, columns, values, cb) {
-    // Construct the query string that inserts a single row into the target table
-    var queryString = 'INSERT INTO ' + tableName;
+  insertOne: function(table, cols, vals, cb) {
+    var queryString = 'INSERT INTO ' + table;
     queryString += ' (';
-    queryString += columns.toString();
+    queryString += cols.toString();
     queryString += ') ';
     queryString += 'VALUES (';
-    queryString += printQuestionMarks(values.length);
+    queryString += printQuestionMarks(vals.length);
     queryString += ') ';
-    //database query
-    connection.query(queryString, values, function(err, result) {
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function(err, result) {
       if (err) {
         throw err;
       }
-      // return results in callback
       cb(result);
     });
   },
-  // Fn to update  single table entry
-  updateOne: function(tableName, columnValue, idValue, cb) {
-    // Construct the query string that updates a single entry in the target table
-    var queryString = 'UPDATE ' + tableName;
-
+  updateOne: function(table, objColVals, condition, cb) {
+    var queryString = 'UPDATE ' + table;
     queryString += ' SET ';
-    queryString += objToSql(columnValue);
+    queryString += objToSql(objColVals);
     queryString += ' WHERE ';
-    queryString += idValue;
+    queryString += condition;
 
-    // console.log(queryString);
+    console.log(queryString);
 
-    // Perform the database query
     connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }
-      // Return results in callback
       cb(result);
     });
   }
 };
+
+// Export the ORM Object
 module.exports = orm;

@@ -1,4 +1,4 @@
-##seeds
-INSERT INTO burgers(
-  burger_name
-) VALUES ("HAM AND CHEESE SANDWICH");
+-- Insert queries to populate burgers table with 3 entries
+INSERT INTO burgers (burger_name, devoured) VALUES ("Krabby Patty", false);
+INSERT INTO burgers (burger_name, devoured) VALUES ("Big Mac", false);
+INSERT INTO burgers (burger_name, devoured) VALUES ("The Whopper", false);

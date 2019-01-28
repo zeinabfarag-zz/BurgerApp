@@ -1,26 +1,36 @@
-//dependenices
-const express = require('express');
-const exphbars = require('express-handlebars');
-const bodyParser = require('body-parser');
-const path = require('path');
-const methodOverRide = require('method-override');
-//setting up server
+// Bring in dependencies
+var express = require('express');
+var bodyParser = require('body-parser');
+var path = require('path');
+var methodOverride = require('method-override');
 var app = express();
-//port to listen on
+
+// Set the port of our application
+// process.env.PORT lets the port be set by Heroku
 var PORT = process.env.PORT || 3000;
-//static content for application from public directory
-app.use(express.static(path.join(__dirname, 'public')));
-//to override http method to allow methods like PUT or delete(not in this app though) where client does not support it
-app.use(methodOverRide('_method'));
-//middleware
+
+// Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Use static
+app.use(express.static(path.join(__dirname, 'public/assets')));
+
+// Override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
+
 // Set up Handlebars
-app.engine('handlebars', exphbars({ defaultLayout: 'main' }));
+var exphbs = require('express-handlebars');
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
-var routes = require('./controllers/burger_controller');
+
+// Routes of the server
+var routes = require('./controllers/burgers_controller');
 app.use('/', routes);
-//listening fn
+
+// Start our server so that it can begin listening to client requests.
 app.listen(PORT, function() {
-  console.log(`Listening on PORT: ${PORT}`);
+  // Log (server-side) when our server has started
+  console.log('Server listening on: http://localhost:' + PORT);
 });
