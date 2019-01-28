@@ -1,18 +1,19 @@
-<h1>Burgers!</h1>
+<section class='col-6 toEat border'>
+    <h1>Ready to eat</h1>
+    {{#each burger}}
+    {{#unless devoured}}
+    <p>{{burger_name}}
+        <button class='devour' data-id="{{id}}" burger_name='{{burger_name}}'>Devour</button>
+    </p>
+    {{/unless}}
+    {{/each}}
+</section>
 
-<h2>Add a Burger</h2>
-<form class="create-form">
-
-  <div class="form-group">
-    <label for="burger">Burger Name:</label>
-    <input type="text" id="burger" name="name">
-  </div>
-
-  <div class="form-group">
-    <label for="devoured">Eat?</label><br>
-    <input type="radio" name="devoured" value="1" checked> Eat!<br>
-    <input type="radio" name="devoured" value="0"> Hungry!
-  </div>
-
-  <button type="submit">Add Burger</button>
-</form>
+<section class='col-6 devoured border'>
+    <h1>Devoured</h1>
+    {{#each burger}}
+    {{#if devoured}}
+    <p>{{burger_name}}</p>
+    {{/if}}
+    {{/each}}
+</section>
