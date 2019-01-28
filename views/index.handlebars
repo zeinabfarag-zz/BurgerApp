@@ -1,19 +1,71 @@
-<section class='col-6 toEat border'>
-    <h1>Ready to eat</h1>
-    {{#each burger}}
-    {{#unless devoured}}
-    <p>{{burger_name}}
-        <button class='devour' data-id="{{id}}" burger_name='{{burger_name}}'>Devour</button>
-    </p>
-    {{/unless}}
-    {{/each}}
-</section>
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="/assets/img/burgerimg.jpg" width="400px" height="400px" id="pic-burger">
+        <h2>Da Burgers on hand</h2>
+        <ul>
+          {{#each burgers}}
+          {{#unless this.devoured}}
+          <br>
+          <div>
+            <li>
+              <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+                <button type="submit" class=' btn btn-warning burgerAvailable'> {{this.id}}. {{this.burger_name}}
+                  (Click To Eat Me)</button>
+              </form>
+            </li>
+          </div>
+          {{/unless}}
+          {{/each}}
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <img src="/assets/img/26081492-cartoon-cheese-burger-making-a-thumbs-up-gesture-wearing-a-crown-and-sticking-out-tongue.jpg"
+          width="400px" height="400px" id="pic-burger">
+        <h2>Burgers Eaten</h2>
+        <ul>
+          {{#each burgers}}
+          {{#if this.devoured}}
+          <div class='burgerEaten'>
+            <div>
+              <li>
+                {{this.id}}. {{this.burger_name}}
+              </li>
+            </div>
+          </div>
+          {{/if}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<br>
+</div>
+</div>
+</main>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h2>Order a Burger</h2>
+      <form name="addingBurger" action="/burgers" method="POST" onsubmit="return validationForm()">
+        <input type="text" id="newBurger" name="burger_name" placeholder="Name of Burger">
+        <button type="submit" class="addBurgerButton btn btn-primary">Order Burger</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-<section class='col-6 devoured border'>
-    <h1>Devoured</h1>
-    {{#each burger}}
-    {{#if devoured}}
-    <p>{{burger_name}}</p>
-    {{/if}}
-    {{/each}}
-</section>
+<body>
+  <script>
+    function validationForm() {
+      var newBurger = document.forms["addingBurger"]["burger_name"].value;
+      if (newBurger == "") {
+        alert("You have to say something to order something");
+        return false;
+      }
+    }
+  </script>
+</body>

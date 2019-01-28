@@ -1,19 +1,22 @@
-// Dependencies
-// =============================================================
-
-// Sequelize (capital) references the standard library
-var Sequelize = require("sequelize");
-// sequelize (lowercase) references our connection to the DB.
-var sequelize = require("../config/connection.js");
-
-// Creates a "Burger" model that matches up with DB
-var Burger = sequelize.define("burger", {
-  burger_name: Sequelize.STRING,
-  devoured: Sequelize.BOOLEAN
-});
-
-// Syncs with DB
-Burger.sync();
-
-// Makes the Burger Model available for other files (will also create a table)
-module.exports = Burger;
+//file will call on the predefined orm fns and use specific values
+//require in orm fns
+const orm = require('../config/orm.js');
+const burger = {
+  selectAll: function(cb) {
+    orm.selectAll('burgers', function(result) {
+      cb(result);
+    });
+  },
+  insertOne(columns, values, cb) {
+    orm.insertOne('burgers', columns, values, function(result) {
+      cb(result);
+    });
+  },
+  updateOne(columnValue, idValue, cb) {
+    orm.updateOne('burgers', columnValue, idValue, function(result) {
+      cb(result);
+    });
+  }
+};
+//export the code for use in controller dir
+module.exports = burger;

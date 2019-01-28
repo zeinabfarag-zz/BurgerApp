@@ -1,23 +1,28 @@
 {
   "name": "burger-sequelize",
   "version": "1.0.0",
-  "description": "",
+  "description": "Packed full of bytes, this application allows users to create a a burger of their own choice, which is saved into a MySQL file. You can then devour your creation, updating the devour column name.",
   "main": "server.js",
-  "engines": {
-    "node": "8.11.3"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeinabfarag/burger-sequelize.git"
   },
   "author": "",
-  "homepage": "https://github.com/zeinabfarag/burger-sequelize#readme",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeinabfarag/burger-sequelize/issues"
+  },
+  "homepage": "https://github.com/zeinabfarag/burger-sequelize#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "method-override": "^3.0.0",
     "mysql": "^2.16.0",
-    "mysql2": "^1.6.1",
-    "sequelize": "^4.38.1"
+    "path": "^0.12.7"
   }
 }

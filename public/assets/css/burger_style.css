@@ -1,0 +1,27 @@
+body {
+  font-family: sans-serif;
+  width: 100%;
+  background: rgb(163, 162, 93);
+  margin: 0 auto;
+}
+
+h1 {
+  margin: auto 0;
+  margin-left: 20%;
+  margin-bottom: 3%;
+  margin-top: 2%;
+  text-align: center;
+  margin: 50px;
+  font-size: 65px;
+}
+
+#burgerAvailable {
+  float: left;
+  margin-right: 6%;
+  margin-left: 10%;
+}
+
+li {
+  font-size: 20px;
+  list-style-type: none;
+}

@@ -1,36 +1,26 @@
-// Dependencies
-// =============================================================
-var express = require("express");
-var bodyParser = require("body-parser");
-
-// Tells node that we are creating an "express" server
+//dependenices
+const express = require('express');
+const exphbars = require('express-handlebars');
+const bodyParser = require('body-parser');
+const path = require('path');
+const methodOverRide = require('method-override');
+//setting up server
 var app = express();
-
-// Sets an initial port. We"ll use this later in our listener
+//port to listen on
 var PORT = process.env.PORT || 3000;
-
-app.use(express.static("public"));
-
-// Sets up the Express app to handle data parsing
+//static content for application from public directory
+app.use(express.static(path.join(__dirname, 'public')));
+//to override http method to allow methods like PUT or delete(not in this app though) where client does not support it
+app.use(methodOverRide('_method'));
+//middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-// ================================================================================
-// ROUTER
-// The below points our server to a series of "route" files.
-// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
-// ================================================================================
-app.use(require("./controllers/burgers_controller"));
-
-// =============================================================================
-// LISTENER
-// The below code effectively "starts" our server
-// =============================================================================
+// Set up Handlebars
+app.engine('handlebars', exphbars({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+var routes = require('./controllers/burger_controller');
+app.use('/', routes);
+//listening fn
 app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+  console.log(`Listening on PORT: ${PORT}`);
 });
