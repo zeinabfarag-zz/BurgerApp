@@ -12,6 +12,7 @@ The user may enter any burger name to add it to the menu. This also adds the new
 
 ## Technologies Used
 * Node.js
+* Express.js
 * MySQL
 * jQuery
 * Bootstrap
