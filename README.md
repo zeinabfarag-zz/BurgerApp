@@ -18,7 +18,7 @@ To run the application locally, first clone this repository with the following c
 	
 Next, install the application dependencies.
 
-	cd 
+	cd BurgerApp
 	npm install
 	
 Finally, run the node server locally.
@@ -29,6 +29,7 @@ Now, open the local application on port 3000 at the URL: `http://localhost:3000/
 
 ## Technologies Used
 * Node.js
+* MySQL
 * jQuery
 * Bootstrap
 
